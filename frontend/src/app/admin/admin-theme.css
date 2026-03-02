@@ -1,0 +1,90 @@
+.admin-shell {
+  --admin-primary: #d94b00;
+  --admin-primary-hover: #b93f00;
+}
+
+.admin-shell {
+  display: flex;
+  min-height: 100vh;
+  background: #fff7f2;
+}
+
+.admin-sidebar {
+  background: #8b1e00;
+  color: #fff;
+  transition: all 0.2s;
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 100vh;
+  overflow-y: auto;
+  z-index: 30;
+  width: 260px;
+}
+
+.admin-sidebar.collapsed {
+  width: 76px;
+}
+
+.admin-sidebar.mobile {
+  transform: translateX(-100%);
+  width: 260px;
+}
+
+.admin-sidebar.mobile.open {
+  transform: translateX(0);
+}
+
+.admin-main {
+  width: 100%;
+  transition: all 0.2s;
+  margin-left: 260px;
+}
+
+.admin-main.sidebar-collapsed {
+  margin-left: 76px;
+}
+
+.admin-main.mobile {
+  margin-left: 0;
+}
+
+.admin-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.45);
+  z-index: 20;
+}
+
+.admin-shell .btn-danger {
+  background-color: var(--admin-primary);
+  border-color: var(--admin-primary);
+}
+
+.admin-shell .btn-danger:hover,
+.admin-shell .btn-danger:focus {
+  background-color: var(--admin-primary-hover);
+  border-color: var(--admin-primary-hover);
+}
+
+.admin-shell .btn-outline-danger {
+  color: var(--admin-primary);
+  border-color: var(--admin-primary);
+}
+
+.admin-shell .btn-outline-danger:hover,
+.admin-shell .btn-outline-danger:focus {
+  background: var(--admin-primary);
+  border-color: var(--admin-primary);
+}
+
+@media (max-width: 991.98px) {
+  .admin-sidebar {
+    width: 260px;
+  }
+  .admin-main,
+  .admin-main.sidebar-open,
+  .admin-main.sidebar-collapsed {
+    margin-left: 0;
+  }
+}

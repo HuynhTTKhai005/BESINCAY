@@ -1,0 +1,17 @@
+# Backend
+backend/node_modules/
+backend/.env
+backend/.env.*
+backend/npm-debug.log*
+
+# Frontend
+frontend/node_modules/
+frontend/.next/
+frontend/out/
+frontend/.env.local
+frontend/.env.*
+frontend/npm-debug.log*
+
+# General
+.DS_Store
+*.log

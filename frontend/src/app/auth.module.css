@@ -1,0 +1,121 @@
+.authShell {
+  min-height: calc(100vh - 120px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 32px 12px;
+  background:
+    radial-gradient(circle at top right, rgba(255, 133, 51, 0.18), transparent 46%),
+    radial-gradient(circle at left bottom, rgba(210, 58, 0, 0.14), transparent 44%),
+    linear-gradient(160deg, #fff7f1 0%, #fff3e8 45%, #fffdf9 100%);
+}
+
+.authWrap {
+  width: 100%;
+  max-width: 1080px;
+  display: grid;
+  grid-template-columns: 1.05fr 1fr;
+  gap: 20px;
+}
+
+.authInfo {
+  border-radius: 22px;
+  padding: 34px 30px;
+  color: #fff;
+  background: linear-gradient(155deg, #d84800 0%, #ff7b22 55%, #ff9a3b 100%);
+  box-shadow: 0 20px 40px rgba(216, 72, 0, 0.24);
+}
+
+.authInfo h1 {
+  color: #fff;
+  font-size: 2rem;
+  margin-bottom: 10px;
+  font-weight: 700;
+}
+
+.authInfo p {
+  margin: 0 0 18px;
+  opacity: 0.95;
+}
+
+.authList {
+  margin: 0;
+  padding-left: 18px;
+}
+
+.authList li {
+  margin-bottom: 8px;
+}
+
+.authCard {
+  border-radius: 22px;
+  background: #ffffff;
+  border: 1px solid #ffe0cc;
+  box-shadow: 0 14px 34px rgba(34, 20, 10, 0.12);
+  padding: 28px 24px;
+}
+
+.authTitle {
+  margin-bottom: 14px;
+  color: #8c2f00;
+  font-weight: 700;
+}
+
+.authInput {
+  border: 1px solid #ffd6bf;
+  border-radius: 12px;
+  padding: 10px 12px;
+}
+
+.authInput:focus {
+  border-color: #ff8d3f;
+  box-shadow: 0 0 0 0.2rem rgba(216, 72, 0, 0.15);
+}
+
+.authButton {
+  width: 100%;
+  border: none;
+  border-radius: 12px;
+  padding: 11px 14px;
+  font-weight: 700;
+  color: #fff;
+  background: linear-gradient(160deg, #d84800 0%, #ff7a21 100%);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.authButton:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 10px 18px rgba(216, 72, 0, 0.26);
+}
+
+.authButton:disabled {
+  opacity: 0.7;
+  transform: none;
+  box-shadow: none;
+}
+
+.authMeta {
+  font-size: 0.96rem;
+  margin-top: 14px;
+}
+
+.authMeta a {
+  font-weight: 700;
+  color: #c34300;
+}
+
+@media (max-width: 992px) {
+  .authWrap {
+    grid-template-columns: 1fr;
+  }
+
+  .authInfo {
+    order: 2;
+    padding: 22px 20px;
+  }
+
+  .authCard {
+    order: 1;
+    padding: 22px 18px;
+  }
+}
