@@ -63,13 +63,11 @@ initializeRoles().catch((error) => {
 });
 
 
-
-
  app.get("/api/health", (req, res) => {
     res.json({ status: "OK" })
 })
 
 const PORT = process.env.PORT || 4000
 app.listen(PORT, () => {
-    console.log(`ðŸš€ Backend running at http://localhost:${PORT}`)
+    console.log(`Backend running at http://localhost:${PORT}`)
 })
