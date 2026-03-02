@@ -21,7 +21,11 @@ const contactMessageRoute = require('./src/routes/contactMessage.route.js');
 app.use(express.json());
 // Middleware
 app.use(cors({
-    origin: ['http://localhost:3000', 'http://localhost:3001'], // Next.js frontend
+    origin: [
+        'http://localhost:3000',
+        'http://localhost:3001',
+        process.env.FRONTEND_URL
+    ].filter(Boolean),
     credentials: true
 }));
 app.use(cookieParser());
