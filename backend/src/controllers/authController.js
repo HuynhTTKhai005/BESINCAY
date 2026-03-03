@@ -21,7 +21,7 @@ const hasMailConfig = () => Boolean(APP_MAIL_USER && APP_MAIL_PASS && RESET_SECR
 const normalizeEmail = (value) => String(value || '').trim().toLowerCase();
 const escapeRegex = (value) => value.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
 
-const createMailTransport = () =>
+const createMailTransport = (override = {}) =>
   nodemailer.createTransport({
     host: SMTP_HOST,
     port: SMTP_PORT,
@@ -33,8 +33,30 @@ const createMailTransport = () =>
     auth: {
       user: APP_MAIL_USER,
       pass: APP_MAIL_PASS
-    }
+    },
+    ...override
   });
+
+const sendMailWithFallback = async (mailOptions) => {
+  try {
+    const transporter = createMailTransport();
+    await transporter.sendMail(mailOptions);
+  } catch (error) {
+    const shouldRetryWith465 =
+      error?.code === 'ETIMEDOUT' &&
+      String(SMTP_HOST).toLowerCase() === 'smtp.gmail.com' &&
+      Number(SMTP_PORT) === 587;
+
+    if (!shouldRetryWith465) throw error;
+
+    const fallbackTransport = createMailTransport({
+      port: 465,
+      secure: true,
+      requireTLS: false
+    });
+    await fallbackTransport.sendMail(mailOptions);
+  }
+};
 
 const findUserByEmail = (email) => {
   const normalized = normalizeEmail(email);
@@ -206,8 +228,7 @@ const authController = {
 
       const resetLink = `${FRONTEND_URL}/reset-password?token=${encodeURIComponent(resetToken)}`;
 
-      const transporter = createMailTransport();
-      await transporter.sendMail({
+      await sendMailWithFallback({
         from: `"${SYSTEM_MAIL_NAME}" <${APP_MAIL_USER}>`,
         to: user.email,
         subject: 'Đặt lại mật khẩu tài khoản Sincay',
