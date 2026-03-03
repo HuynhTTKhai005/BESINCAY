@@ -19,6 +19,7 @@ const contactMessageRoute = require('./src/routes/contactMessage.route.js');
 
 // Middleware
 app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
 // Middleware
 app.use(cors({
     origin: [

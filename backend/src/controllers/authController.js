@@ -73,7 +73,7 @@ const authController = {
         return res.status(500).json({ success: false, message: 'Thiếu cấu hình JWT_SECRET trên server' });
       }
 
-      const email = normalizeEmail(req.body.email);
+      const email = normalizeEmail(req.body?.email || req.query?.email || '');
       const password = String(req.body.password || '');
       const name = String(req.body.name || '').trim();
       const phone = String(req.body.phone || '').trim();
