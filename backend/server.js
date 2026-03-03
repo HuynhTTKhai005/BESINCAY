@@ -17,10 +17,7 @@ const couponRoute = require('./src/routes/coupon.route.js');
 const reservationRoute = require('./src/routes/reservation.route.js');
 const contactMessageRoute = require('./src/routes/contactMessage.route.js');
 
-// Middleware
-app.use(express.json());
-app.use(express.urlencoded({ extended: true }));
-// Middleware
+// CORS should run before body parsing so even error responses include CORS headers.
 app.use(cors({
     origin: [
         'http://localhost:3000',
@@ -29,6 +26,10 @@ app.use(cors({
     ].filter(Boolean),
     credentials: true
 }));
+
+// Allow larger JSON payloads (admin uploads image as base64 string).
+app.use(express.json({ limit: '10mb' }));
+app.use(express.urlencoded({ extended: true, limit: '10mb' }));
 app.use(cookieParser());
 
 
