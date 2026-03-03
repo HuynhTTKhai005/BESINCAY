@@ -11,6 +11,9 @@ const FRONTEND_URL = process.env.FRONTEND_URL || 'http://localhost:3000';
 const APP_MAIL_USER = process.env.APP_MAIL_USER;
 const APP_MAIL_PASS = String(process.env.APP_MAIL_PASS || '').replace(/\s+/g, '');
 const SYSTEM_MAIL_NAME = process.env.SYSTEM_MAIL_NAME || 'Sincay System';
+const SMTP_HOST = process.env.SMTP_HOST || 'smtp.gmail.com';
+const SMTP_PORT = Number(process.env.SMTP_PORT || 587);
+const SMTP_SECURE = String(process.env.SMTP_SECURE || 'false').toLowerCase() === 'true';
 
 const hasJwtConfig = () => Boolean(JWT_SECRET);
 const hasMailConfig = () => Boolean(APP_MAIL_USER && APP_MAIL_PASS && RESET_SECRET);
@@ -20,7 +23,13 @@ const escapeRegex = (value) => value.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
 
 const createMailTransport = () =>
   nodemailer.createTransport({
-    service: 'gmail',
+    host: SMTP_HOST,
+    port: SMTP_PORT,
+    secure: SMTP_SECURE,
+    requireTLS: !SMTP_SECURE,
+    connectionTimeout: Number(process.env.SMTP_CONNECTION_TIMEOUT || 20000),
+    greetingTimeout: Number(process.env.SMTP_GREETING_TIMEOUT || 15000),
+    socketTimeout: Number(process.env.SMTP_SOCKET_TIMEOUT || 30000),
     auth: {
       user: APP_MAIL_USER,
       pass: APP_MAIL_PASS
