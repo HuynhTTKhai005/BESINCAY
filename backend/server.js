@@ -16,6 +16,7 @@ const wishlistRoute = require('./src/routes/wishlist.route.js');
 const couponRoute = require('./src/routes/coupon.route.js');
 const reservationRoute = require('./src/routes/reservation.route.js');
 const contactMessageRoute = require('./src/routes/contactMessage.route.js');
+const BODY_LIMIT = process.env.BODY_LIMIT || '25mb';
 
 // CORS should run before body parsing so even error responses include CORS headers.
 app.use(cors({
@@ -27,9 +28,9 @@ app.use(cors({
     credentials: true
 }));
 
-// Allow larger JSON payloads (admin uploads image as base64 string).
-app.use(express.json({ limit: '10mb' }));
-app.use(express.urlencoded({ extended: true, limit: '10mb' }));
+// Allow larger payloads (admin uploads image as base64 string).
+app.use(express.json({ limit: BODY_LIMIT }));
+app.use(express.urlencoded({ extended: true, limit: BODY_LIMIT }));
 app.use(cookieParser());
 
 
