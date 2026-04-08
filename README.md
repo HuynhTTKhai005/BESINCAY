@@ -29,6 +29,7 @@ Hệ thống website bán món Hàn Quốc theo mô hình fullstack, gồm giao 
 - JWT
 - Cookie Parser
 - Nodemailer
+- OpenAI API
 
 ### Hạ tầng
 - Frontend deploy trên Vercel
@@ -38,6 +39,7 @@ Hệ thống website bán món Hàn Quốc theo mô hình fullstack, gồm giao 
 ## Tính năng chính
 ### Khu vực người dùng
 - Đăng ký, đăng nhập, đăng xuất
+- Hiển thị tài khoản demo ngay trên trang đăng nhập
 - Quên mật khẩu và đặt lại mật khẩu
 - Xem danh sách sản phẩm theo danh mục
 - Tìm kiếm và phân trang sản phẩm
@@ -50,6 +52,7 @@ Hệ thống website bán món Hàn Quốc theo mô hình fullstack, gồm giao 
 - Theo dõi lịch sử đơn hàng
 - Hủy đơn hàng kèm lý do
 - Xem và cập nhật hồ sơ cá nhân
+- AI chat box tư vấn món theo nội dung khách hàng hỏi
 
 ### Khu vực quản trị
 - Dashboard thống kê
@@ -66,6 +69,7 @@ Hệ thống website bán món Hàn Quốc theo mô hình fullstack, gồm giao 
 - Xác thực bằng JWT kết hợp cookie `httpOnly`
 - Phân quyền backend bằng middleware, không chỉ ẩn giao diện ở frontend
 - API backend xử lý lọc, phân trang và thống kê
+- AI recommendation backend parse yêu cầu món ăn, lọc menu và gợi ý theo dữ liệu thực
 - Sử dụng soft delete cho một số dữ liệu quan trọng
 - Tách biệt frontend và backend để thuận tiện triển khai
 - Cấu hình môi trường rõ ràng cho local và production
@@ -111,7 +115,9 @@ Sincay_web/
 - Admin: `admin@sincay.com` / `123456`
 - Customer: `customer@gmail.com` / `123456`
 
-Lưu ý: tài khoản mẫu phụ thuộc vào dữ liệu đã seed trong database.
+Lưu ý:
+- Tài khoản mẫu phụ thuộc vào dữ liệu đã seed trong database.
+- Trang đăng nhập frontend hiện có block `Tài khoản demo` để điền nhanh 2 tài khoản trên.
 
 ## Yêu cầu môi trường
 - Node.js LTS
@@ -155,6 +161,8 @@ SMTP_CONNECTION_TIMEOUT=20000
 SMTP_GREETING_TIMEOUT=15000
 SMTP_SOCKET_TIMEOUT=30000
 BODY_LIMIT=25mb
+OPENAI_API_KEY=
+OPENAI_MODEL=gpt-4.1-mini
 ```
 
 ### Frontend: `frontend/.env.local`
@@ -232,12 +240,21 @@ Lưu ý:
 - `staff`: xem và thao tác trong phạm vi quản trị được cấp
 - `admin`: toàn quyền quản trị hệ thống
 
+### AI tư vấn món
+- Khách hàng nhập câu hỏi tự nhiên như khẩu vị, ngân sách, món muốn ăn hoặc món muốn loại trừ
+- Backend parse intent từ câu hỏi, bao gồm `price_max`, `is_spicy`, `include_keywords`, `exclude_keywords`, `intent`, `people`
+- Hệ thống lọc menu chỉ lấy món còn bán, còn hàng và phù hợp điều kiện
+- Kết quả được ưu tiên theo nhóm `mì cay -> khai vị -> nước`
+- Nếu khách loại một nhóm, hệ thống sẽ bù bằng món từ nhóm còn lại thay vì trả món thuộc nhóm bị loại
+- Có thêm endpoint AI recommendation riêng: `POST /api/ai/recommend`
+
 ## API và bảo mật
 - Backend dùng JWT để xác thực
 - Cookie `httpOnly` hỗ trợ bảo vệ tốt hơn so với lưu token hoàn toàn ở `localStorage`
 - Middleware backend kiểm tra quyền truy cập theo role
 - CORS được cấu hình theo domain frontend
 - Các biến nhạy cảm được tách ra bằng `.env`
+- `OPENAI_API_KEY` chỉ được dùng ở backend, không expose ra frontend
 
 ## Triển khai production
 ### Frontend
@@ -256,6 +273,8 @@ Lưu ý:
 - `NEXT_PUBLIC_BACKEND_URL`
 - `APP_MAIL_USER`
 - `APP_MAIL_PASS`
+- `OPENAI_API_KEY`
+- `OPENAI_MODEL`
 
 ## Hướng dẫn nộp dự án
 Khi gửi dự án cho giảng viên hoặc nhà tuyển dụng, nên:
@@ -283,6 +302,7 @@ Khi gửi dự án cho giảng viên hoặc nhà tuyển dụng, nên:
 - Dự án đã có frontend production
 - Dự án đã có backend deploy
 - Hệ thống đã có đầy đủ các nghiệp vụ chính cho một bài tập fullstack hoặc portfolio thực tập sinh
+- Đã tích hợp AI chat box và API recommendation để tư vấn món ăn theo dữ liệu menu
 
 ## Tác giả
 - Họ tên: Huỳnh Trần Tiến Khải
