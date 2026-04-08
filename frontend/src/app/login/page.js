@@ -6,6 +6,11 @@ import Link from "next/link";
 import { useAuth } from "../contexts/AuthContext";
 import styles from "../auth.module.css";
 
+const DEMO_ACCOUNTS = [
+  { label: "Khách", email: "customer@gmail.com", password: "123456" },
+  { label: "Admin", email: "admin@sincay.com", password: "123456" }
+];
+
 export default function LoginPage() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -40,6 +45,12 @@ export default function LoginPage() {
     }
 
     setLoading(false);
+  };
+
+  const fillDemoAccount = (account) => {
+    setEmail(account.email);
+    setPassword(account.password);
+    setError("");
   };
 
   return (
@@ -98,6 +109,26 @@ export default function LoginPage() {
               )}
             </button>
           </form>
+
+          <div className={styles.demoBox}>
+            <div className={styles.demoTitle}>Tài khoản demo</div>
+            <div className={styles.demoList}>
+              {DEMO_ACCOUNTS.map((account) => (
+                <button
+                  key={account.label}
+                  type="button"
+                  className={styles.demoItem}
+                  onClick={() => fillDemoAccount(account)}
+                  disabled={loading}
+                >
+                  <span className={styles.demoBadge}>{account.label}</span>
+                  <span className={styles.demoText}>
+                    {account.email} / {account.password}
+                  </span>
+                </button>
+              ))}
+            </div>
+          </div>
 
           <div className={styles.authMeta}>
             <p className="mb-1">

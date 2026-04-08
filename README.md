@@ -4,7 +4,7 @@ Hệ thống website bán món Hàn Quốc theo mô hình fullstack, gồm giao 
 
 ## Demo
 - Frontend production: `https://besincay.vercel.app`
-- Backend production: triển khai trên Railway
+- Backend production: triển khai trên Render
 
 ## Mục tiêu dự án
 - Xây dựng hệ thống đặt món trực tuyến có giao diện thân thiện, responsive và dễ sử dụng.
@@ -32,7 +32,7 @@ Hệ thống website bán món Hàn Quốc theo mô hình fullstack, gồm giao 
 
 ### Hạ tầng
 - Frontend deploy trên Vercel
-- Backend deploy trên Railway
+- Backend deploy trên Render
 - Database deploy trên MongoDB Atlas
 
 ## Tính năng chính
@@ -245,7 +245,7 @@ Lưu ý:
 - Domain hiện tại: `https://besincay.vercel.app`
 
 ### Backend
-- Deploy trên Railway
+- Deploy trên Render
 - Kết nối database MongoDB Atlas
 
 ### Biến môi trường production cần chú ý

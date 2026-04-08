@@ -61,9 +61,7 @@ const sendMailWithFallback = async (mailOptions) => {
 const findUserByEmail = (email) => {
   const normalized = normalizeEmail(email);
   if (!normalized) return null;
-  return User.findOne({
-    email: { $regex: `^${escapeRegex(normalized)}$`, $options: 'i' }
-  });
+  return User.findOne({ email: { $regex: `^${escapeRegex(normalized)}$`, $options: 'i' } });
 };
 
 const authController = {
@@ -74,9 +72,9 @@ const authController = {
       }
 
       const email = normalizeEmail(req.body?.email || req.query?.email || '');
-      const password = String(req.body.password || '');
-      const name = String(req.body.name || '').trim();
-      const phone = String(req.body.phone || '').trim();
+      const password = String(req.body?.password || '');
+      const name = String(req.body?.name || '').trim();
+      const phone = String(req.body?.phone || '').trim();
 
       if (!email || !password || !name) {
         return res.status(400).json({ success: false, message: 'Thiếu thông tin đăng ký bắt buộc' });
@@ -132,8 +130,8 @@ const authController = {
 
   login: async (req, res) => {
     try {
-      const email = normalizeEmail(req.body.email);
-      const password = String(req.body.password || '');
+      const email = normalizeEmail(req.body?.email || req.query?.email || '');
+      const password = String(req.body?.password || '');
 
       if (!email || !password) {
         return res.status(400).json({ success: false, message: 'Vui lòng nhập email và mật khẩu' });
@@ -152,11 +150,8 @@ const authController = {
       if (typeof user.password === 'string' && user.password.startsWith('$2')) {
         isMatch = await bcrypt.compare(password, user.password);
       } else {
-        // Hỗ trợ dữ liệu cũ lưu plain-text, sau khi login thành công sẽ tự chuyển sang hash.
         isMatch = user.password === password;
-        if (isMatch) {
-          user.password = await bcrypt.hash(password, 10);
-        }
+        if (isMatch) user.password = await bcrypt.hash(password, 10);
       }
 
       if (!isMatch) {
@@ -205,7 +200,7 @@ const authController = {
         });
       }
 
-      const email = normalizeEmail(req.body.email);
+      const email = normalizeEmail(req.body?.email || req.query?.email || '');
       if (!email) {
         return res.status(400).json({ success: false, message: 'Vui lòng nhập email' });
       }
@@ -268,8 +263,8 @@ const authController = {
         });
       }
 
-      const token = String(req.body.token || '');
-      const newPassword = String(req.body.newPassword || '');
+      const token = String(req.body?.token || '');
+      const newPassword = String(req.body?.newPassword || '');
 
       if (!token || !newPassword) {
         return res.status(400).json({ success: false, message: 'Thiếu dữ liệu đặt lại mật khẩu' });
@@ -340,3 +335,4 @@ const authController = {
 };
 
 module.exports = authController;
+

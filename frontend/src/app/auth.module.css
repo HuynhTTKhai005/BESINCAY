@@ -99,6 +99,67 @@
   margin-top: 14px;
 }
 
+.demoBox {
+  margin-top: 16px;
+  padding: 14px;
+  border-radius: 16px;
+  background: linear-gradient(180deg, #fff8f2 0%, #fff3ea 100%);
+  border: 1px solid #ffd8c4;
+}
+
+.demoTitle {
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: #9e3a09;
+  margin-bottom: 10px;
+}
+
+.demoList {
+  display: grid;
+  gap: 8px;
+}
+
+.demoItem {
+  width: 100%;
+  text-align: left;
+  border: 1px solid #ffd6bf;
+  border-radius: 12px;
+  background: #fff;
+  padding: 10px 12px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  transition: border-color 0.2s ease, transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.demoItem:hover {
+  border-color: #ff9a66;
+  transform: translateY(-1px);
+  box-shadow: 0 8px 18px rgba(216, 72, 0, 0.12);
+}
+
+.demoItem:disabled {
+  opacity: 0.7;
+  transform: none;
+  box-shadow: none;
+}
+
+.demoBadge {
+  flex: 0 0 auto;
+  border-radius: 999px;
+  padding: 5px 10px;
+  background: rgba(216, 72, 0, 0.12);
+  color: #b3440a;
+  font-size: 0.82rem;
+  font-weight: 700;
+}
+
+.demoText {
+  color: #6f3920;
+  font-size: 0.92rem;
+  word-break: break-all;
+}
+
 .authMeta a {
   font-weight: 700;
   color: #c34300;
