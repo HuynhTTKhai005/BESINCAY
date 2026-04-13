@@ -325,7 +325,42 @@ exports.getStaffActivities = async (req, res) => {
     }
 
     const [items, total] = await Promise.all([
-      StaffActivity.find(query).populate('staff_id', 'name email').sort({ created_at: -1 }).skip(skip).limit(parsedLimit),
+      StaffActivity.aggregate([
+        { $match: query },
+        { $sort: { created_at: -1 } },
+        { $skip: skip },
+        { $limit: parsedLimit },
+        {
+          $lookup: {
+            from: 'users',
+            localField: 'staff_id',
+            foreignField: '_id',
+            as: 'staff_id'
+          }
+        },
+        {
+          $unwind: {
+            path: '$staff_id',
+            preserveNullAndEmptyArrays: true
+          }
+        },
+        {
+          $project: {
+            action: 1,
+            entity_type: 1,
+            entity_id: 1,
+            description: 1,
+            payload: 1,
+            created_at: 1,
+            updated_at: 1,
+            staff_id: {
+              _id: '$staff_id._id',
+              name: '$staff_id.name',
+              email: '$staff_id.email'
+            }
+          }
+        }
+      ]).allowDiskUse(true),
       StaffActivity.countDocuments(query)
     ]);
 

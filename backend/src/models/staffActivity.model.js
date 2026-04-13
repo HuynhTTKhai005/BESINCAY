@@ -16,5 +16,6 @@ const staffActivitySchema = new mongoose.Schema(
 
 staffActivitySchema.index({ staff_id: 1, created_at: -1 });
 staffActivitySchema.index({ action: 1, created_at: -1 });
+staffActivitySchema.index({ created_at: -1 });
 
 module.exports = mongoose.model('StaffActivity', staffActivitySchema);
