@@ -16,7 +16,6 @@ const wishlistRoute = require('./src/routes/wishlist.route.js');
 const couponRoute = require('./src/routes/coupon.route.js');
 const reservationRoute = require('./src/routes/reservation.route.js');
 const contactMessageRoute = require('./src/routes/contactMessage.route.js');
-const aiRoute = require('./src/routes/ai.route.js');
 const BODY_LIMIT = process.env.BODY_LIMIT || '25mb';
 
 // CORS should run before body parsing so even error responses include CORS headers.
@@ -51,7 +50,6 @@ app.use('/api/wishlist', wishlistRoute);
 app.use('/api/coupons', couponRoute);
 app.use('/api/reservations', reservationRoute);
 app.use('/api/contact-messages', contactMessageRoute);
-app.use('/api/ai', aiRoute);
 
 
 // role

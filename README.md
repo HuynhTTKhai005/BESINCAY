@@ -1,17 +1,38 @@
-﻿# Sincay Web
+# Sincay Web
 
-Hệ thống website bán món Hàn Quốc theo mô hình fullstack, gồm giao diện khách hàng và trang quản trị dành cho `admin`/`staff`. Dự án tập trung vào các nghiệp vụ thực tế như xác thực người dùng, giỏ hàng, đặt hàng, wishlist, coupon, quản lý đơn hàng, quản lý sản phẩm, khách hàng, tồn kho và dashboard thống kê.
+Sincay Web là dự án website bán món Hàn Quốc theo mô hình fullstack, gồm:
+- `frontend`: giao diện khách hàng và trang quản trị
+- `backend`: hệ thống API, xác thực, phân quyền, quản lý dữ liệu và xử lý nghiệp vụ
+
+Dự án được xây dựng theo hướng portfolio thực tập sinh/fullstack junior nhưng bám sát các bài toán thực tế như xác thực người dùng, giỏ hàng, đặt hàng, coupon, quản trị đơn hàng, tồn kho, phân quyền `admin/staff`, đặt bàn, liên hệ khách hàng và tư vấn menu.
 
 ## Demo
 - Frontend production: `https://besincay.vercel.app`
 - Backend production: triển khai trên Render
 
 ## Mục tiêu dự án
-- Xây dựng hệ thống đặt món trực tuyến có giao diện thân thiện, responsive và dễ sử dụng.
-- Áp dụng mô hình tách lớp frontend/backend rõ ràng.
-- Thể hiện các kiến thức cốt lõi của thực tập sinh fullstack: xác thực, phân quyền, CRUD, dashboard, làm việc với MongoDB, deploy và quản lý biến môi trường.
+- Xây dựng một hệ thống đặt món trực tuyến có trải nghiệm thân thiện và responsive.
+- Tách biệt rõ frontend và backend để dễ bảo trì, mở rộng và triển khai.
+- Thể hiện các kỹ năng cốt lõi của một fullstack developer:
+  - thiết kế REST API
+  - xác thực và phân quyền
+  - quản lý trạng thái người dùng/giỏ hàng
+  - làm việc với MongoDB
+  - xử lý nghiệp vụ quản trị
+  - quản lý biến môi trường và deploy production
+
+## Điểm nổi bật khi giới thiệu trong phỏng vấn
+- Kiến trúc tách `Next.js frontend` và `Express backend`
+- Xác thực bằng `JWT` kết hợp cookie `httpOnly`
+- Phân quyền backend bằng middleware, không chỉ chặn ở UI
+- Hỗ trợ giỏ hàng cho khách chưa đăng nhập và đồng bộ sau đăng nhập
+- Quản lý đơn hàng có timeline trạng thái và yêu cầu hủy đơn
+- Quản trị sản phẩm, danh mục, khách hàng, người dùng, đặt bàn, thư liên hệ, tồn kho
+- Dashboard thống kê phục vụ admin/staff
+- Chatbox frontend hiện tại đã được tối ưu theo hướng FAQ/preset để demo ổn định hơn khi phỏng vấn
 
 ## Công nghệ sử dụng
+
 ### Frontend
 - Next.js
 - React
@@ -20,6 +41,7 @@ Hệ thống website bán món Hàn Quốc theo mô hình fullstack, gồm giao 
 - AOS
 - Swiper
 - GLightbox
+- Recharts
 
 ### Backend
 - Node.js
@@ -29,53 +51,15 @@ Hệ thống website bán món Hàn Quốc theo mô hình fullstack, gồm giao 
 - JWT
 - Cookie Parser
 - Nodemailer
-- OpenAI API
 
 ### Hạ tầng
 - Frontend deploy trên Vercel
 - Backend deploy trên Render
 - Database deploy trên MongoDB Atlas
 
-## Tính năng chính
-### Khu vực người dùng
-- Đăng ký, đăng nhập, đăng xuất
-- Hiển thị tài khoản demo ngay trên trang đăng nhập
-- Quên mật khẩu và đặt lại mật khẩu
-- Xem danh sách sản phẩm theo danh mục
-- Tìm kiếm và phân trang sản phẩm
-- Xem chi tiết sản phẩm
-- Thêm sản phẩm vào giỏ hàng
-- Giữ giỏ hàng khi chưa đăng nhập và đồng bộ sau đăng nhập
-- Wishlist sản phẩm
-- Áp mã giảm giá khi đặt hàng
-- Checkout và tạo đơn hàng
-- Theo dõi lịch sử đơn hàng
-- Hủy đơn hàng kèm lý do
-- Xem và cập nhật hồ sơ cá nhân
-- AI chat box tư vấn món theo nội dung khách hàng hỏi
+## Kiến trúc tổng quan
 
-### Khu vực quản trị
-- Dashboard thống kê
-- Quản lý đơn hàng
-- Quản lý sản phẩm
-- Quản lý danh mục
-- Quản lý tồn kho và lịch sử nhập hàng
-- Quản lý người dùng, khách hàng
-- Quản lý đặt bàn
-- Quản lý thư liên hệ
-- Phân quyền `admin` và `staff`
-
-## Điểm kỹ thuật nổi bật
-- Xác thực bằng JWT kết hợp cookie `httpOnly`
-- Phân quyền backend bằng middleware, không chỉ ẩn giao diện ở frontend
-- API backend xử lý lọc, phân trang và thống kê
-- AI recommendation backend parse yêu cầu món ăn, lọc menu và gợi ý theo dữ liệu thực
-- Sử dụng soft delete cho một số dữ liệu quan trọng
-- Tách biệt frontend và backend để thuận tiện triển khai
-- Cấu hình môi trường rõ ràng cho local và production
-
-## Kiến trúc dự án
-```
+```text
 Sincay_web/
 |-- backend/
 |   |-- public/
@@ -86,6 +70,7 @@ Sincay_web/
 |   |   |-- models/
 |   |   |-- routes/
 |   |   |-- seed/
+|   |   |-- services/
 |   |   |-- utils/
 |   |-- package.json
 |   |-- server.js
@@ -102,29 +87,164 @@ Sincay_web/
 |-- README.md
 ```
 
-## Mô hình backend
+## Cấu trúc backend
 - `models`: định nghĩa schema Mongoose
-- `controllers`: xử lý nghiệp vụ
-- `routes`: khai báo endpoint
-- `middleware`: xác thực, phân quyền
+- `controllers`: xử lý nghiệp vụ theo module
+- `routes`: khai báo endpoint REST
+- `middleware`: xác thực và phân quyền
+- `services`: tách logic dùng chung theo nghiệp vụ khi cần
 - `config`: cấu hình kết nối database
 - `seed`: tạo dữ liệu mẫu
 - `utils`: hàm hỗ trợ dùng chung
+
+## Tính năng chính
+
+### 1. Khu vực người dùng
+- Đăng ký, đăng nhập, đăng xuất
+- Hiển thị tài khoản demo trên màn hình đăng nhập
+- Quên mật khẩu và đặt lại mật khẩu qua email
+- Xem menu theo danh mục
+- Tìm kiếm và xem chi tiết sản phẩm
+- Thêm món vào giỏ hàng
+- Giữ giỏ hàng khi chưa đăng nhập và đồng bộ sau đăng nhập
+- Wishlist sản phẩm
+- Áp mã giảm giá khi checkout
+- Tạo đơn hàng và theo dõi lịch sử đơn hàng
+- Gửi yêu cầu hủy đơn kèm lý do
+- Xem và cập nhật hồ sơ cá nhân
+- Đặt bàn trực tuyến
+- Gửi thư liên hệ
+- Chatbox hỗ trợ nhanh theo FAQ/preset
+
+### 2. Khu vực quản trị
+- Dashboard thống kê
+- Quản lý đơn hàng
+- Quản lý sản phẩm
+- Quản lý danh mục
+- Quản lý tồn kho và lịch sử nhập kho
+- Quản lý user, customer
+- Quản lý đặt bàn
+- Quản lý thư liên hệ
+- Phân quyền theo vai trò `admin` và `staff`
+
+## Các module nghiệp vụ chính
+
+### Xác thực và phân quyền
+- Người dùng đăng nhập bằng email/password
+- Backend tạo JWT và lưu bằng cookie `httpOnly`
+- Middleware backend đọc token từ:
+  - `Authorization: Bearer <token>`
+  - cookie `token`
+  - query `token`
+- Sau khi xác thực, backend nạp thông tin user và role để kiểm tra quyền
+
+Vai trò trong hệ thống:
+- `customer`: sử dụng các tính năng mua hàng
+- `staff`: được truy cập một phần khu vực quản trị
+- `admin`: toàn quyền trong hệ thống quản trị
+
+### Giỏ hàng
+- Người dùng chưa đăng nhập vẫn có thể thêm sản phẩm vào giỏ hàng bằng local storage
+- Sau khi đăng nhập, giỏ hàng local được đồng bộ lên server
+- Khi checkout, đơn hàng được tạo từ giỏ hiện tại
+
+### Đơn hàng
+- Đơn hàng gồm thông tin khách hàng, danh sách món, phí ship, coupon, tổng tiền, trạng thái và timeline
+- Admin/staff có thể cập nhật trạng thái đơn hàng
+- Người dùng có thể gửi yêu cầu hủy đơn ở các trạng thái cho phép
+- Hệ thống lưu lịch sử trạng thái để dễ theo dõi trong quản trị
+
+### Quản lý tồn kho
+- Sản phẩm có số lượng tồn
+- Admin có thể nhập kho hoặc cập nhật số lượng thủ công
+- Mỗi lần thay đổi tồn kho đều có log lịch sử nhập/điều chỉnh
+
+### Coupon
+- Kiểm tra coupon theo điều kiện subtotal
+- Tính số tiền giảm giá ở backend
+- Tăng `used_count` sau khi đặt đơn thành công
+
+### Chatbox hỗ trợ nhanh hiện tại
+- Frontend chatbox hiện được triển khai theo FAQ/preset để phù hợp demo và phỏng vấn
+- Người dùng có thể:
+  - bấm câu hỏi gợi ý có sẵn
+  - nhập câu hỏi tự do
+- Nếu nhập câu hỏi ngoài danh sách, chatbox sẽ hướng người dùng liên hệ số điện thoại của quán để được tư vấn thêm
+
+## API chính
+
+### Public / user
+- `POST /api/auth/register`
+- `POST /api/auth/login`
+- `POST /api/auth/forgot-password`
+- `POST /api/auth/reset-password`
+- `GET /api/auth/profile`
+- `POST /api/auth/logout`
+
+- `GET /api/products`
+- `GET /api/categories`
+- `GET /api/orders`
+- `GET /api/orders/:orderId`
+- `PUT /api/orders/:orderId/cancel`
+
+- `GET /api/cart`
+- `POST /api/cart/add`
+- `PUT /api/cart/update`
+- `DELETE /api/cart/remove`
+- `DELETE /api/cart/clear`
+
+- `POST /api/coupons/validate`
+- `POST /api/reservations`
+- `POST /api/contact-messages`
+
+### Admin / staff
+- `GET /api/orders/admin/stats/dashboard`
+- `GET /api/orders/admin/all`
+- `GET /api/orders/admin/:orderId`
+- `PUT /api/orders/:orderId/status`
+
+- `GET /api/products/admin/list`
+- `POST /api/products/admin`
+- `PUT /api/products/admin/:id`
+- `DELETE /api/products/admin/:id`
+- `POST /api/products/admin/:id/stock-in`
+- `PUT /api/products/admin/:id/stock`
+- `GET /api/products/admin/stock-history`
+
+- `GET /api/categories/admin/list`
+- `POST /api/categories`
+- `PUT /api/categories/:id`
+- `DELETE /api/categories/:id`
+
+- `GET /api/users/admin/all`
+- `POST /api/users/admin/create`
+- `PUT /api/users/admin/:id`
+- `PUT /api/users/admin/:id/role`
+- `PUT /api/users/admin/:id/status`
+- `GET /api/users/admin/customers`
+
+## Bảo mật và kỹ thuật
+- JWT được lưu qua cookie `httpOnly`
+- Backend có middleware kiểm tra quyền truy cập theo role
+- CORS được cấu hình theo domain frontend
+- Biến môi trường nhạy cảm tách khỏi source code
+- Một số dữ liệu dùng soft delete thay vì xóa cứng
 
 ## Tài khoản mẫu
 - Admin: `admin@sincay.com` / `123456`
 - Customer: `customer@gmail.com` / `123456`
 
 Lưu ý:
-- Tài khoản mẫu phụ thuộc vào dữ liệu đã seed trong database.
-- Trang đăng nhập frontend hiện có block `Tài khoản demo` để điền nhanh 2 tài khoản trên.
+- Tài khoản mẫu phụ thuộc vào dữ liệu đã seed
+- Trang đăng nhập frontend có block `Tài khoản demo` để điền nhanh
 
 ## Yêu cầu môi trường
 - Node.js LTS
 - npm
 - MongoDB local hoặc MongoDB Atlas
 
-## Hướng dẫn cài đặt local
+## Cài đặt local
+
 ### 1. Clone dự án
 ```bash
 git clone <repository-url>
@@ -144,6 +264,7 @@ npm install
 ```
 
 ## Biến môi trường
+
 ### Backend: `backend/.env`
 ```env
 PORT=4000
@@ -161,8 +282,6 @@ SMTP_CONNECTION_TIMEOUT=20000
 SMTP_GREETING_TIMEOUT=15000
 SMTP_SOCKET_TIMEOUT=30000
 BODY_LIMIT=25mb
-OPENAI_API_KEY=
-OPENAI_MODEL=gpt-4.1-mini
 ```
 
 ### Frontend: `frontend/.env.local`
@@ -171,19 +290,20 @@ NEXT_PUBLIC_BACKEND_URL=http://localhost:4000
 ```
 
 ## Chạy dự án ở local
-### Chạy backend
-```bash
-cd backend
-npm start
-```
 
-Hoặc chạy development mode:
+### Backend
 ```bash
 cd backend
 npm run dev
 ```
 
-### Chạy frontend
+Hoặc:
+```bash
+cd backend
+npm start
+```
+
+### Frontend
 ```bash
 cd frontend
 npm run dev
@@ -195,6 +315,7 @@ npm run dev
 - Health check backend: `http://localhost:4000/api/health`
 
 ## Seed dữ liệu mẫu
+
 ### Seed user
 ```bash
 cd backend
@@ -214,58 +335,20 @@ node src/seed/coupon.seed.js
 ```
 
 Lưu ý:
-- Một số file seed có thể xóa dữ liệu cũ trước khi tạo dữ liệu mẫu.
-- Không nên chạy seed bừa trên môi trường production nếu đang dùng dữ liệu thật.
+- Một số file seed có thể xóa dữ liệu cũ trước khi tạo dữ liệu mới
+- Không nên chạy seed trên production nếu đang dùng dữ liệu thật
 
-## Quy trình nghiệp vụ chính
-### Đăng nhập
-- Người dùng gửi email và mật khẩu
-- Backend kiểm tra tài khoản, tạo JWT
-- JWT được trả về và lưu bằng cookie `httpOnly`
-- Middleware backend dùng JWT để xác thực các request cần quyền truy cập
+## Production / Deploy
 
-### Giỏ hàng
-- Khách chưa đăng nhập vẫn có thể thêm sản phẩm
-- Khi đăng nhập, giỏ hàng local được đồng bộ với server
-- Khi checkout, backend tạo đơn hàng từ giỏ hiện tại
-
-### Đơn hàng
-- Tạo đơn hàng từ trang checkout
-- Áp coupon nếu hợp lệ
-- Quản trị viên cập nhật trạng thái đơn hàng
-- Người dùng có thể xem chi tiết đơn và gửi yêu cầu hủy
-
-### Phân quyền
-- `customer`: dùng chức năng mua hàng
-- `staff`: xem và thao tác trong phạm vi quản trị được cấp
-- `admin`: toàn quyền quản trị hệ thống
-
-### AI tư vấn món
-- Khách hàng nhập câu hỏi tự nhiên như khẩu vị, ngân sách, món muốn ăn hoặc món muốn loại trừ
-- Backend parse intent từ câu hỏi, bao gồm `price_max`, `is_spicy`, `include_keywords`, `exclude_keywords`, `intent`, `people`
-- Hệ thống lọc menu chỉ lấy món còn bán, còn hàng và phù hợp điều kiện
-- Kết quả được ưu tiên theo nhóm `mì cay -> khai vị -> nước`
-- Nếu khách loại một nhóm, hệ thống sẽ bù bằng món từ nhóm còn lại thay vì trả món thuộc nhóm bị loại
-- Có thêm endpoint AI recommendation riêng: `POST /api/ai/recommend`
-
-## API và bảo mật
-- Backend dùng JWT để xác thực
-- Cookie `httpOnly` hỗ trợ bảo vệ tốt hơn so với lưu token hoàn toàn ở `localStorage`
-- Middleware backend kiểm tra quyền truy cập theo role
-- CORS được cấu hình theo domain frontend
-- Các biến nhạy cảm được tách ra bằng `.env`
-- `OPENAI_API_KEY` chỉ được dùng ở backend, không expose ra frontend
-
-## Triển khai production
 ### Frontend
 - Deploy trên Vercel
 - Domain hiện tại: `https://besincay.vercel.app`
 
 ### Backend
 - Deploy trên Render
-- Kết nối database MongoDB Atlas
+- Database sử dụng MongoDB Atlas
 
-### Biến môi trường production cần chú ý
+### Biến môi trường production quan trọng
 - `MONGODB_URI`
 - `JWT_SECRET`
 - `RESET_PASSWORD_SECRET`
@@ -273,41 +356,41 @@ Lưu ý:
 - `NEXT_PUBLIC_BACKEND_URL`
 - `APP_MAIL_USER`
 - `APP_MAIL_PASS`
-- `OPENAI_API_KEY`
-- `OPENAI_MODEL`
 
-## Hướng dẫn nộp dự án
-Khi gửi dự án cho giảng viên hoặc nhà tuyển dụng, nên:
-- Không gửi `node_modules`
-- Không gửi `.next`
-- Không gửi `.env` thật
-- Giữ lại source code, `package.json`, `package-lock.json`, `README.md`
-- Cung cấp tài khoản demo hoặc dữ liệu seed mẫu
+## Hạn chế hiện tại
+- Chưa có bộ unit test / integration test hoàn chỉnh
+- Lint frontend hiện còn ảnh hưởng bởi một số file vendor và cấu hình rule cũ
+- Ảnh sản phẩm hiện vẫn có thể lưu theo dạng base64 ở một số luồng quản trị
+- Chatbox frontend hiện được thiết kế theo FAQ/preset để đảm bảo tính ổn định trong demo
 
-## Các thư mục/file không nên commit
+## Hướng phát triển tiếp theo
+- Tách riêng service gửi mail, logging và monitoring
+- Bổ sung test cho backend và frontend
+- Tối ưu ảnh sản phẩm bằng dịch vụ lưu trữ ngoài
+- Tối ưu hiệu năng dashboard và truy vấn thống kê
+- Chuẩn hóa logging hoạt động của admin/staff
+- Nếu cần mở rộng trong tương lai, có thể nâng cấp chatbox thành AI assistant động
+
+## Gợi ý trình bày khi phỏng vấn
+- Bài toán tôi giải quyết là một hệ thống đặt món online có cả phía khách hàng và trang quản trị.
+- Tôi chọn kiến trúc tách frontend/backend để dễ deploy độc lập và dễ mở rộng.
+- Điểm tôi tập trung nhất là xác thực, phân quyền, giỏ hàng, đơn hàng và dashboard quản trị.
+- Tôi xử lý phân quyền ở backend thay vì chỉ ẩn giao diện để tránh bypass từ client.
+- Với chatbox, tôi chọn hướng FAQ/preset để trải nghiệm ổn định và dễ kiểm soát khi demo.
+- Nếu có thêm thời gian, tôi sẽ bổ sung test và tối ưu media storage.
+
+## Các file/thư mục không nên commit
 - `backend/.env`
 - `frontend/.env.local`
 - `backend/node_modules`
 - `frontend/node_modules`
 - `frontend/.next`
 
-## Hướng mở rộng trong tương lai
-- Upload ảnh sản phẩm qua dịch vụ lưu trữ ngoài thay vì base64
-- Thêm unit test / integration test
-- Tối ưu hiệu năng dashboard
-- Hoàn thiện quy trình email production ổn định hơn
-- Tách service gửi mail và logging
-
-## Tình trạng hiện tại
-- Dự án đã có frontend production
-- Dự án đã có backend deploy
-- Hệ thống đã có đầy đủ các nghiệp vụ chính cho một bài tập fullstack hoặc portfolio thực tập sinh
-- Đã tích hợp AI chat box và API recommendation để tư vấn món ăn theo dữ liệu menu
+## Ghi chú bảo mật
+- Không chia sẻ public biến môi trường production
+- Không commit `.env` thật
+- Nên cung cấp `.env.example` để người khác có thể chạy lại hệ thống
 
 ## Tác giả
 - Họ tên: Huỳnh Trần Tiến Khải
-- Vai trò: Fullstack Developer 
-
-## Ghi chú bảo mật
- - Không chia sẻ public các biến môi trường production
-- Nên tạo `.env.example` cho người chấm chạy lại hệ thống
+- Vai trò: Fullstack Developer
